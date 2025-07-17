@@ -1,75 +1,65 @@
-import requests
-from bs4 import BeautifulSoup
 import json
 import os
 import re
+import base64
+import requests
+from bs4 import BeautifulSoup
 
-DRAW_LIST_URL = "https://www.singaporepools.com.sg/DataFileArchive/Lottery/Output/toto_result_draw_list_en.html"
-RESULTS_FILE = "docs/toto_result.json"
-OUTPUT_FILE = "draw_urls.txt"
+BASE_URL = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx"
+RESULTS_JSON_PATH = "docs/toto_result.json"
+DRAW_URLS_PATH = "draw_urls.txt"
 
-def fetch_draw_links():
-    print("[+] Fetching draw list...")
-    res = requests.get(DRAW_LIST_URL)
-    res.raise_for_status()
-    soup = BeautifulSoup(res.text, "html.parser")
+def load_existing_draw_numbers():
+    if not os.path.exists(RESULTS_JSON_PATH):
+        return set()
+    with open(RESULTS_JSON_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return {str(entry["draw_number"]) for entry in data}
 
-    options = soup.find_all("option")
+def fetch_draw_options():
+    response = requests.get(BASE_URL, timeout=10)
+    soup = BeautifulSoup(response.text, "html.parser")
+    options = soup.select("select[id$='_ddlPastDraws'] > option")
     print(f"[DEBUG] Total <option> tags found: {len(options)}")
+    return options
 
-    draws = []
+def decode_draw_number(sppl_value):
+    try:
+        decoded = base64.b64decode(sppl_value).decode("utf-8")
+        match = re.search(r"DrawNumber=(\d+)", decoded)
+        return match.group(1) if match else None
+    except Exception:
+        return None
+
+def main():
+    existing_draws = load_existing_draw_numbers()
+    print(f"[✓] Found {len(existing_draws)} results in {RESULTS_JSON_PATH}")
+
+    options = fetch_draw_options()
+
+    new_urls = []
     for opt in options:
-        querystring = opt.get("querystring")
-        text = opt.text.strip()
-
-        print(f"[DEBUG] Option text: '{text}' | querystring: '{querystring}'")
-
-        if not querystring or not text:
+        value = opt.get("value")
+        if not value:
             continue
-
-        # Match any 4-digit number (e.g., 4096)
-        match = re.search(r"\b(\d{4})\b", text)
-        if match:
-            draw_number = match.group(1)
-            full_url = f"https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?{querystring}"
-            draws.append((draw_number, full_url))
-
-    print(f"[✓] Found {len(draws)} valid draws on Singapore Pools site")
-
-    # Load already scraped draws
-    existing_draws = set()
-    if os.path.exists(RESULTS_FILE):
-        with open(RESULTS_FILE, "r") as f:
-            try:
-                results = json.load(f)
-                existing_draws = {entry["draw_number"] for entry in results}
-            except Exception:
-                pass
-
-    print(f"[✓] Found {len(existing_draws)} results in {RESULTS_FILE}")
-
-    missing = []
-    for draw_number, url in draws:
+        draw_number = decode_draw_number(value)
+        if draw_number is None:
+            continue
+        full_url = f"{BASE_URL}?sppl={value}"
         if draw_number not in existing_draws:
-            missing.append((int(draw_number), url))
+            new_urls.append(full_url)
 
-    if not missing:
-        print(f"[✓] No new draws. Skipping update of {OUTPUT_FILE}")
-        return
-
-    missing.sort(reverse=True)
-    urls_only = [url for _, url in missing]
-
-    with open(OUTPUT_FILE, "w") as f:
-        for url in urls_only:
-            f.write(url + "\n")
-        f.flush()
-        os.fsync(f.fileno())
-
-    print(f"[✓] {len(urls_only)} new draw URLs written to {OUTPUT_FILE}")
-    print("[DEBUG] First 3 new draws:")
-    for url in urls_only[:3]:
-        print("  →", url)
+    if new_urls:
+        with open(DRAW_URLS_PATH, "w", encoding="utf-8") as f:
+            for url in new_urls:
+                f.write(url + "\n")
+        print(f"[✓] {len(new_urls)} new draw URLs written to {DRAW_URLS_PATH}")
+        print("[DEBUG] First 3 new draws:")
+        for u in new_urls[:3]:
+            print(f"  → {u}")
+    else:
+        print("[✓] No new draws found. draw_urls.txt not updated.")
 
 if __name__ == "__main__":
-    fetch_draw_links()
+    print("[+] Fetching draw list...")
+    main()
