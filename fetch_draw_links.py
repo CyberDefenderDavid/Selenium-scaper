@@ -19,7 +19,7 @@ def fetch_draw_links():
     for opt in options:
         querystring = opt.get("querystring")
         if querystring:
-            full_url = base_url + querystring
+            full_url = base_url + querystring  # FIXED: no extra "sppl="
             urls.append(full_url)
 
     if not urls:
