@@ -60,6 +60,12 @@ def main():
     with open(URL_LIST_FILE, "r") as f:
         all_urls = [line.strip() for line in f if line.strip()]
 
+    print(f"[DEBUG] Found {len(all_urls)} URLs in draw_urls.txt")
+    if all_urls:
+        print("[DEBUG] First 3 URLs:")
+        for u in all_urls[:3]:
+            print("  →", u)
+
     if not all_urls:
         print("[✓] No more URLs left to process.")
         return
@@ -97,6 +103,8 @@ def main():
     with open(URL_LIST_FILE, "w") as f:
         for url in remaining_urls:
             f.write(url + "\n")
+        f.flush()
+        os.fsync(f.fileno())
 
     print(f"[✓] Batch complete: {added} added, {len(urls_to_process) - added} skipped.")
 
