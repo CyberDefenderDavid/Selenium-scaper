@@ -21,10 +21,14 @@ def fetch_draw_links():
     for opt in options:
         querystring = opt.get("querystring")
         text = opt.text.strip()
+
+        print(f"[DEBUG] Option text: '{text}' | querystring: '{querystring}'")
+
         if not querystring or not text:
             continue
 
-        match = re.search(r'Draw\s+(\d+)', text)
+        # Match any 4-digit number (e.g., 4096)
+        match = re.search(r"\b(\d{4})\b", text)
         if match:
             draw_number = match.group(1)
             full_url = f"https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?sppl={querystring}"
@@ -32,6 +36,7 @@ def fetch_draw_links():
 
     print(f"[✓] Found {len(draws)} valid draws on Singapore Pools site")
 
+    # Load already scraped draws
     existing_draws = set()
     if os.path.exists(RESULTS_FILE):
         with open(RESULTS_FILE, "r") as f:
