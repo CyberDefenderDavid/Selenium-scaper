@@ -1,1 +1,53 @@
-[]
+[
+  {
+    "date": "Thu, 17 Jul 2025",
+    "draw_number": "4096",
+    "winning_numbers": [
+      "7",
+      "8",
+      "17",
+      "29",
+      "32",
+      "42"
+    ],
+    "additional_number": "1",
+    "jackpot": "$12,766,543",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$1,186,233",
+        "shares": "12"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,658",
+        "shares": "609"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$304",
+        "shares": "1,815"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "34,527"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "49,068"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "614,079"
+      }
+    ]
+  }
+]
