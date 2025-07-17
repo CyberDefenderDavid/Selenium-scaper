@@ -23,7 +23,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install selenium chromedriver-autoinstaller
+        pip install selenium chromedriver-autoinstaller beautifulsoup4 requests
+
+    - name: Fetch draw links
+      run: python fetch_draw_links.py
 
     - name: Run scraper
       run: python selenium_scraper.py
