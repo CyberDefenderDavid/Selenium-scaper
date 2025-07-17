@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import json
 import os
 
 DRAW_LIST_URL = "https://www.singaporepools.com.sg/DataFileArchive/Lottery/Output/toto_result_draw_list_en.html"
@@ -24,15 +23,19 @@ def fetch_draw_links():
             urls.append(full_url)
 
     if not urls:
-        raise RuntimeError("[!] No draw links found. The page format may have changed.")
+        raise RuntimeError("[!] No draw links found. The source may have changed.")
 
     os.makedirs(os.path.dirname(OUTPUT_FILE) or ".", exist_ok=True)
 
     with open(OUTPUT_FILE, "w") as f:
         for url in urls:
             f.write(url + "\n")
+        f.flush()
+        os.fsync(f.fileno())
 
     print(f"[✓] {len(urls)} draw URLs written to {OUTPUT_FILE}")
+    print("[DEBUG] First draw:", urls[0])
+    print("[DEBUG] Last draw:", urls[-1])
 
 if __name__ == "__main__":
     fetch_draw_links()
