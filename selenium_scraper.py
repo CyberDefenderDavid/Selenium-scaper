@@ -1,19 +1,17 @@
 import os
 import time
 import json
+import chromedriver_autoinstaller
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-import chromedriver_autoinstaller
 
 URL_LIST_FILE = "draw_urls.txt"
 OUTPUT_FILE = "docs/toto_result.json"
 BATCH_SIZE = 50
 
-# Ensure ChromeDriver is present
 chromedriver_autoinstaller.install()
 
-# Setup headless browser
 options = Options()
 options.add_argument("--headless=new")
 options.add_argument("--no-sandbox")
@@ -53,6 +51,8 @@ def scrape_draw(url):
     }
 
 def main():
+    start = time.time()
+
     if not os.path.exists(URL_LIST_FILE):
         print(f"[!] {URL_LIST_FILE} not found.")
         return
@@ -99,6 +99,10 @@ def main():
             f.write(url + "\n")
 
     print(f"[✓] Batch complete: {added} added, {len(urls_to_process) - added} skipped.")
+
+    end = time.time()
+    elapsed = end - start
+    print(f"[⏱] Time taken: {int(elapsed // 60)}m {int(elapsed % 60)}s")
 
 if __name__ == "__main__":
     main()
