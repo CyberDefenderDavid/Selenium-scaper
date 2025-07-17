@@ -2,9 +2,9 @@ name: Run Selenium TOTO Scraper
 
 on:
   schedule:
-    - cron: '0 12 * * *'
-    - cron: '0 13 * * *'
-    - cron: '0 14 * * *'
+    - cron: '0 12 * * *'   # 8:00 PM SGT
+    - cron: '0 13 * * *'   # 9:00 PM SGT
+    - cron: '0 14 * * *'   # 10:00 PM SGT
   workflow_dispatch:
 
 jobs:
@@ -15,31 +15,20 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
 
-    - name: Setup Python
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.x'
 
     - name: Install dependencies
       run: |
-        pip install selenium
-
-    - name: Setup Chrome
-      uses: browser-actions/setup-chrome@v1
-
-    - name: Setup ChromeDriver
-      run: |
-        CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-        echo "Detected Chrome version: $CHROME_VERSION"
-        wget -q https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$CHROME_VERSION/linux64/chromedriver-linux64.zip
-        unzip chromedriver-linux64.zip
-        sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
-        chmod +x /usr/local/bin/chromedriver
+        python -m pip install --upgrade pip
+        pip install selenium chromedriver-autoinstaller
 
     - name: Run scraper
       run: python selenium_scraper.py
 
-    - name: Commit and push
+    - name: Commit and push results
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
