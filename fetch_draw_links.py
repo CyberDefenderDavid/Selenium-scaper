@@ -13,7 +13,7 @@ def fetch_draw_links():
     soup = BeautifulSoup(response.text, "html.parser")
     options = soup.find_all("option")
 
-    base_url = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?sppl="
+    base_url = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?"
     urls = []
 
     for opt in options:
