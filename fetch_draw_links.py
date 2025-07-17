@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import os
+import re
 
 DRAW_LIST_URL = "https://www.singaporepools.com.sg/DataFileArchive/Lottery/Output/toto_result_draw_list_en.html"
 RESULTS_FILE = "docs/toto_result.json"
@@ -14,21 +15,22 @@ def fetch_draw_links():
     soup = BeautifulSoup(res.text, "html.parser")
 
     options = soup.find_all("option")
-    total_options = 0
-    draws = []
+    print(f"[DEBUG] Total <option> tags found: {len(options)}")
 
+    draws = []
     for opt in options:
         querystring = opt.get("querystring")
         text = opt.text.strip()
-        if querystring and "Draw" in text:
-            try:
-                draw_number = text.split("Draw")[-1].strip()
-                draws.append((draw_number, querystring))
-                total_options += 1
-            except Exception:
-                continue
+        if not querystring or not text:
+            continue
 
-    print(f"[✓] Found {total_options} draws on Singapore Pools site")
+        match = re.search(r'Draw\s+(\d+)', text)
+        if match:
+            draw_number = match.group(1)
+            full_url = f"https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?sppl={querystring}"
+            draws.append((draw_number, full_url))
+
+    print(f"[✓] Found {len(draws)} valid draws on Singapore Pools site")
 
     existing_draws = set()
     if os.path.exists(RESULTS_FILE):
@@ -42,13 +44,12 @@ def fetch_draw_links():
     print(f"[✓] Found {len(existing_draws)} results in {RESULTS_FILE}")
 
     missing = []
-    for draw_number, querystring in draws:
+    for draw_number, url in draws:
         if draw_number not in existing_draws:
-            full_url = f"https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?sppl={querystring}"
-            missing.append((int(draw_number), full_url))
+            missing.append((int(draw_number), url))
 
     if not missing:
-        print("[✓] All draws are already scraped.")
+        print(f"[✓] No new draws. Skipping update of {OUTPUT_FILE}")
         return
 
     missing.sort(reverse=True)
@@ -60,8 +61,8 @@ def fetch_draw_links():
         f.flush()
         os.fsync(f.fileno())
 
-    print(f"[✓] {len(missing)} draw URLs written to {OUTPUT_FILE}")
-    print("[DEBUG] First 3 missing draws:")
+    print(f"[✓] {len(urls_only)} new draw URLs written to {OUTPUT_FILE}")
+    print("[DEBUG] First 3 new draws:")
     for url in urls_only[:3]:
         print("  →", url)
 
