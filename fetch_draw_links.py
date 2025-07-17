@@ -31,7 +31,7 @@ def fetch_draw_links():
         match = re.search(r"\b(\d{4})\b", text)
         if match:
             draw_number = match.group(1)
-            full_url = f"https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?sppl={querystring}"
+            full_url = f"https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?{querystring}"
             draws.append((draw_number, full_url))
 
     print(f"[✓] Found {len(draws)} valid draws on Singapore Pools site")
