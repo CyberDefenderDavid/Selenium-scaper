@@ -12,13 +12,13 @@
   <h1>TOTO Results</h1>
 
   <div>
-    <label for="drawFilter">Filter by Draw Number:</label>
-    <select id="drawFilter">
-      <option value="all">All</option>
-    </select>
-
     <label for="dateFilter">Filter by Date:</label>
     <select id="dateFilter">
+      <option value="all">All</option>
+    </select>
+    
+    <label for="drawFilter">Filter by Draw Number:</label>
+    <select id="drawFilter">
       <option value="all">All</option>
     </select>
   </div>
@@ -35,12 +35,18 @@
     </thead>
     <tbody></tbody>
   </table>
-
-  <div class="section">
-    <h2>🎲 TOTO Gen (Quick Pick)</h2>
-    <button onclick="generateToto()">Generate Numbers</button>
-    <p id="totoGenOutput"></p>
-  </div>
+  
+  <div class="quick-picker">
+      <h2>🎲 TOTO Gen (Quick Pick)</h2>
+      <label for="pickerCount">How many numbers to pick?</label>
+      <select id="pickerCount">
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+      </select>
+      <button onclick="generateToto()">Generate Numbers</button>
+      <p id="totoGenOutput"></p>
+    </div>
 
   <div class="section">
     <h2 class="hot-title">🔥 Hot Numbers (Most Drawn)</h2>

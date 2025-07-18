@@ -83,10 +83,14 @@ function togglePrize(link) {
 }
 
 function generateToto() {
+  const count = parseInt(document.getElementById("pickerCount").value, 10);
   const nums = new Set();
-  while (nums.size < 6) nums.add(Math.floor(Math.random() * 49) + 1);
+  while (nums.size < count) {
+    nums.add(Math.floor(Math.random() * 49) + 1);
+  }
   document.getElementById("totoGenOutput").textContent = [...nums].sort((a, b) => a - b).join(", ");
 }
+
 
 function renderStats(data) {
   const includeAdd = document.getElementById("bonusToggle").value === "yes";
