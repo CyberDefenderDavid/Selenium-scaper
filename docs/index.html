@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Singapore Pools TOTO Results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button class="dark-toggle" id="darkToggle">🌙 Toggle Dark Mode</button>
+
+  <h1>TOTO Results</h1>
+
+  <div>
+    <label for="drawFilter">Filter by Draw Number:</label>
+    <select id="drawFilter">
+      <option value="all">All</option>
+    </select>
+
+    <label for="dateFilter">Filter by Date:</label>
+    <select id="dateFilter">
+      <option value="all">All</option>
+    </select>
+  </div>
+
+  <table id="totoTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Draw Number</th>
+        <th>Winning Numbers</th>
+        <th>Additional Number</th>
+        <th>Prizes</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="section">
+    <h2>🎲 TOTO Gen (Quick Pick)</h2>
+    <button onclick="generateToto()">Generate Numbers</button>
+    <p id="totoGenOutput"></p>
+  </div>
+
+  <div class="section">
+    <h2 class="hot-title">🔥 Hot Numbers (Most Drawn)</h2>
+
+    <label for="bonusToggle">Include Additional Number (Hot Only):</label>
+    <select id="bonusToggle">
+      <option value="no" selected>No</option>
+      <option value="yes">Yes</option>
+    </select>
+
+    <label for="hotCount">How many hot numbers to show:</label>
+    <select id="hotCount">
+      <option value="6" selected>6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select>
+
+    <p id="drawCount"></p>
+    <div id="hotNumbers"></div>
+
+    <h2 class="cold-title">❄️ Cold Numbers (Least Drawn)</h2>
+
+    <label for="coldCount">How many cold numbers to show:</label>
+    <select id="coldCount">
+      <option value="6" selected>6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select>
+
+    <div id="coldNumbers"></div>
+  </div>
+
+  <div class="section toggle-section">
+    <span class="toggle-btn" onclick="toggleAllDraws()">📊 Show All Numbers Based on Draw</span>
+    <div id="allDraws" class="hidden">
+      <table class="all-draw-table">
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>Times Drawn</th>
+          </tr>
+        </thead>
+        <tbody id="allDrawList"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer style="font-size: 0.9em; color: #666; text-align: center; margin-top: 2em;">
+    <p>
+      This site is an <strong>unofficial viewer</strong> of Singapore TOTO results.<br>
+      Data is sourced from <a href="https://www.singaporepools.com.sg" target="_blank" rel="noopener noreferrer">Singapore Pools</a> and refreshed daily.<br>
+      We are <strong>not affiliated</strong> with or endorsed by Singapore Pools.<br>
+      This project is for <strong>learning GitHub Actions and workflow automation</strong>.
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
