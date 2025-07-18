@@ -15298,5 +15298,719 @@
         "shares": "98,795"
       }
     ]
+  },
+  {
+    "date": "Thu, 01 Sep 2022",
+    "draw_number": "3796",
+    "winning_numbers": [
+      "1",
+      "18",
+      "28",
+      "42",
+      "43",
+      "48"
+    ],
+    "additional_number": "45",
+    "jackpot": "$11,414,547",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$11,414,547",
+        "shares": "1"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$200,528",
+        "shares": "6"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,822",
+        "shares": "454"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$394",
+        "shares": "1,148"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "25,173"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "32,244"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "450,598"
+      }
+    ]
+  },
+  {
+    "date": "Mon, 29 Aug 2022",
+    "draw_number": "3795",
+    "winning_numbers": [
+      "4",
+      "8",
+      "9",
+      "15",
+      "22",
+      "31"
+    ],
+    "additional_number": "13",
+    "jackpot": "$5,699,511",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$37,465",
+        "shares": "16"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$852",
+        "shares": "484"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$191",
+        "shares": "1,180"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "21,413"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "25,059"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "314,939"
+      }
+    ]
+  },
+  {
+    "date": "Thu, 25 Aug 2022",
+    "draw_number": "3794",
+    "winning_numbers": [
+      "3",
+      "5",
+      "13",
+      "23",
+      "24",
+      "48"
+    ],
+    "additional_number": "10",
+    "jackpot": "$2,852,218",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$600,468",
+        "shares": "1"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,489",
+        "shares": "161"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$291",
+        "shares": "450"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "8,497"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "13,013"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "148,666"
+      }
+    ]
+  },
+  {
+    "date": "Mon, 22 Aug 2022",
+    "draw_number": "3793",
+    "winning_numbers": [
+      "5",
+      "20",
+      "23",
+      "36",
+      "42",
+      "44"
+    ],
+    "additional_number": "47",
+    "jackpot": "$1,196,739",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,883",
+        "shares": "92"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$468",
+        "shares": "202"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "5,132"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "5,533"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "95,866"
+      }
+    ]
+  },
+  {
+    "date": "Thu, 18 Aug 2022",
+    "draw_number": "3792",
+    "winning_numbers": [
+      "2",
+      "4",
+      "12",
+      "18",
+      "28",
+      "43"
+    ],
+    "additional_number": "38",
+    "jackpot": "$5,634,202",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$5,634,202",
+        "shares": "1"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$72,426",
+        "shares": "8"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,384",
+        "shares": "288"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$293",
+        "shares": "742"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "15,793"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "18,144"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "255,883"
+      }
+    ]
+  },
+  {
+    "date": "Mon, 15 Aug 2022",
+    "draw_number": "3791",
+    "winning_numbers": [
+      "7",
+      "22",
+      "29",
+      "34",
+      "38",
+      "41"
+    ],
+    "additional_number": "35",
+    "jackpot": "$2,882,015",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$424,599",
+        "shares": "2"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$2,055",
+        "shares": "121"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$392",
+        "shares": "346"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "6,789"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "9,060"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "128,467"
+      }
+    ]
+  },
+  {
+    "date": "Thu, 11 Aug 2022",
+    "draw_number": "3790",
+    "winning_numbers": [
+      "10",
+      "12",
+      "16",
+      "18",
+      "32",
+      "44"
+    ],
+    "additional_number": "22",
+    "jackpot": "$1,164,653",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$2,162",
+        "shares": "78"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$334",
+        "shares": "276"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "5,275"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "8,092"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "97,051"
+      }
+    ]
+  },
+  {
+    "date": "Mon, 08 Aug 2022",
+    "draw_number": "3789",
+    "winning_numbers": [
+      "2",
+      "9",
+      "33",
+      "34",
+      "37",
+      "49"
+    ],
+    "additional_number": "29",
+    "jackpot": "$1,151,669",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$1,151,669",
+        "shares": "1"
+      },
+      {
+        "group": "Group 2",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,985",
+        "shares": "84"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$448",
+        "shares": "203"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "4,188"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "6,568"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "82,724"
+      }
+    ]
+  },
+  {
+    "date": "Fri, 05 Aug 2022",
+    "draw_number": "3788",
+    "winning_numbers": [
+      "14",
+      "18",
+      "24",
+      "37",
+      "43",
+      "45"
+    ],
+    "additional_number": "8",
+    "jackpot": "$5,000,000",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$5,000,000",
+        "shares": "1"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$115,844",
+        "shares": "9"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,927",
+        "shares": "372"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$369",
+        "shares": "1,060"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "19,848"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "30,695"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "365,676"
+      }
+    ]
+  },
+  {
+    "date": "Mon, 01 Aug 2022",
+    "draw_number": "3787",
+    "winning_numbers": [
+      "3",
+      "10",
+      "12",
+      "29",
+      "45",
+      "47"
+    ],
+    "additional_number": "26",
+    "jackpot": "$1,255,814",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$1,255,814",
+        "shares": "1"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$88,128",
+        "shares": "3"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$2,114",
+        "shares": "86"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$394",
+        "shares": "252"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "5,308"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "7,828"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "103,316"
+      }
+    ]
+  },
+  {
+    "date": "Thu, 28 Jul 2022",
+    "draw_number": "3786",
+    "winning_numbers": [
+      "1",
+      "2",
+      "25",
+      "33",
+      "36",
+      "40"
+    ],
+    "additional_number": "7",
+    "jackpot": "$1,149,738",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$1,149,738",
+        "shares": "1"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$242,050",
+        "shares": "1"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$2,821",
+        "shares": "59"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$340",
+        "shares": "267"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "4,298"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "7,726"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "80,612"
+      }
+    ]
+  },
+  {
+    "date": "Mon, 25 Jul 2022",
+    "draw_number": "3785",
+    "winning_numbers": [
+      "2",
+      "6",
+      "29",
+      "30",
+      "31",
+      "44"
+    ],
+    "additional_number": "40",
+    "jackpot": "$1,194,850",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$1,194,850",
+        "shares": "1"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$251,548",
+        "shares": "1"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$2,621",
+        "shares": "66"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$500",
+        "shares": "189"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "4,912"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "5,938"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "93,143"
+      }
+    ]
+  },
+  {
+    "date": "Thu, 21 Jul 2022",
+    "draw_number": "3784",
+    "winning_numbers": [
+      "4",
+      "15",
+      "31",
+      "42",
+      "43",
+      "47"
+    ],
+    "additional_number": "39",
+    "jackpot": "$2,835,750",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$1,417,875",
+        "shares": "2"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$298,500",
+        "shares": "2"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,310",
+        "shares": "184"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$386",
+        "shares": "341"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "6,789"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "8,114"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "119,981"
+      }
+    ]
+  },
+  {
+    "date": "Mon, 18 Jul 2022",
+    "draw_number": "3783",
+    "winning_numbers": [
+      "3",
+      "20",
+      "36",
+      "41",
+      "43",
+      "47"
+    ],
+    "additional_number": "9",
+    "jackpot": "$1,170,598",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$2,017",
+        "shares": "84"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$477",
+        "shares": "194"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "3,996"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "6,194"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "73,762"
+      }
+    ]
   }
 ]
