@@ -30,18 +30,22 @@ def fetch_draw_options():
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
 
     driver = webdriver.Chrome(options=chrome_options)
+    driver.set_page_load_timeout(30)
     driver.get(TOTO_URL)
-    time.sleep(5)  # Wait for JavaScript to render dropdown
+    time.sleep(5)
 
-    options = driver.find_elements(By.CSS_SELECTOR, "select[id$='ddlPastDraws'] > option")
+    options = driver.find_elements(By.CSS_SELECTOR, "select[id$='ddlPastDraws'] option")
     draw_data = []
     for opt in options:
         val = opt.get_attribute("value")
         text = opt.text.strip()
-        if val:
-            draw_data.append((val, text))
+        if val and val.startswith("sppl="):
+            draw_data.append((val.replace("sppl=", ""), text))
     driver.quit()
     return draw_data
 
