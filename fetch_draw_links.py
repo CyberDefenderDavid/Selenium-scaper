@@ -1,17 +1,14 @@
 import json
 import base64
-from bs4 import BeautifulSoup
-import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+import time
 
 TOTO_URL = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx"
 DRAW_URL_TEMPLATE = TOTO_URL + "?sppl={}"
 RESULTS_JSON_PATH = "docs/toto_result.json"
 DRAW_URLS_PATH = "draw_urls.txt"
-
-def fetch_draw_options():
-    response = requests.get(TOTO_URL)
-    soup = BeautifulSoup(response.text, "html.parser")
-    return soup.select("select[id$='ddlPastDraws'] > option")
 
 def decode_draw_number(sppl_encoded):
     try:
@@ -28,21 +25,37 @@ def load_existing_draw_numbers(path):
     except Exception:
         return set()
 
+def fetch_draw_options():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.get(TOTO_URL)
+    time.sleep(5)  # Wait for JavaScript to render dropdown
+
+    options = driver.find_elements(By.CSS_SELECTOR, "select[id$='ddlPastDraws'] > option")
+    draw_data = []
+    for opt in options:
+        val = opt.get_attribute("value")
+        text = opt.text.strip()
+        if val:
+            draw_data.append((val, text))
+    driver.quit()
+    return draw_data
+
 def main():
     print("[+] Fetching draw list...")
-    options = fetch_draw_options()
-    print(f"[DEBUG] Total <option> tags found: {len(options)}")
+    draw_options = fetch_draw_options()
+    print(f"[DEBUG] Total <option> tags found: {len(draw_options)}")
 
     existing_draws = load_existing_draw_numbers(RESULTS_JSON_PATH)
-    print(f"[✓] Found {len(options)} valid draws on Singapore Pools site")
+    print(f"[✓] Found {len(draw_options)} valid draws on Singapore Pools site")
     print(f"[✓] Found {len(existing_draws)} results in {RESULTS_JSON_PATH}")
 
     new_urls = []
-    for opt in options:
-        sppl_encoded = opt.get("value")
-        draw_date = opt.text.strip()
-        if not sppl_encoded:
-            continue
+    for sppl_encoded, date_text in draw_options:
         draw_number = decode_draw_number(sppl_encoded)
         if draw_number and draw_number not in existing_draws:
             full_url = DRAW_URL_TEMPLATE.format(sppl_encoded)
