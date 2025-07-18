@@ -1,62 +1,68 @@
 import os
 import json
-import base64
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import unquote
+import re
 
-# Constants
-URL = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx"
-DRAW_LIST_SELECTOR = "select[title='Select Draw Number'] option"
-RESULTS_JSON_PATH = os.path.join("docs", "toto_result.json")
-URLS_OUTPUT_PATH = "draw_urls.txt"
-DRAW_URL_PREFIX = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?"
+BASE_URL = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx"
+RESULTS_FILE = "docs/toto_result.json"
+URLS_FILE = "draw_urls.txt"
 
-# Load existing results
-if os.path.exists(RESULTS_JSON_PATH):
-    with open(RESULTS_JSON_PATH, "r", encoding="utf-8") as f:
-        existing_results = json.load(f)
-else:
-    existing_results = []
-
-existing_draws = set(entry["draw_number"] for entry in existing_results)
-print(f"[✓] Found {len(existing_draws)} results in {RESULTS_JSON_PATH}")
-
-# Fetch page content
 print("[+] Fetching draw list...")
-response = requests.get(URL)
-soup = BeautifulSoup(response.content, "html.parser")
-options = soup.select(DRAW_LIST_SELECTOR)
 
+response = requests.get(BASE_URL, timeout=10)
+soup = BeautifulSoup(response.text, "html.parser")
+
+# Find all option tags in the draw list
+options = soup.select("select option")
 print(f"[DEBUG] Total <option> tags found: {len(options)}")
 
-valid_draws = []
-for opt in options:
-    val = opt.get("value", "")
-    text = opt.get_text(strip=True)
-    if not val.startswith("sppl="):
-        continue
-    encoded = val.replace("sppl=", "").strip()
-    try:
-        decoded = base64.b64decode(encoded).decode("utf-8")
-        if "DrawNumber=" in decoded:
-            draw_num = decoded.split("DrawNumber=")[-1]
-            if draw_num not in existing_draws:
-                full_url = f"{DRAW_URL_PREFIX}sppl={encoded}"
-                valid_draws.append((draw_num, full_url))
-            else:
-                print(f"[=] Skipped existing draw {draw_num}")
-    except Exception as e:
-        print(f"[!] Decode error for value: {val} → {e}")
+draw_urls = []
 
-# Write URLs if any new draws found
-if valid_draws:
-    with open(URLS_OUTPUT_PATH, "w", encoding="utf-8") as f:
-        for draw_num, url in valid_draws:
-            f.write(url + "\n")
-    print(f"[✓] Found {len(valid_draws)} valid draws on Singapore Pools site")
-    print(f"[✓] {len(valid_draws)} new draw URLs written to {URLS_OUTPUT_PATH}")
-    print(f"[DEBUG] First 3 new draws:")
-    for draw_num, url in valid_draws[:3]:
-        print(f"  → {url}")
+# Load existing draw numbers from JSON
+if os.path.exists(RESULTS_FILE):
+    with open(RESULTS_FILE, "r", encoding="utf-8") as f:
+        existing_data = json.load(f)
+    existing_draws = {entry["draw_number"] for entry in existing_data}
 else:
+    existing_draws = set()
+
+print(f"[✓] Found {len(existing_draws)} results in {RESULTS_FILE}")
+
+# Extract and filter
+valid_draws = 0
+for option in options:
+    text = option.get_text(strip=True)
+    value = option.get("value", "")
+    if not value.startswith("sppl="):
+        continue
+
+    sppl_raw = value
+    sppl_decoded = unquote(sppl_raw)
+
+    # Attempt to extract draw number from decoded value
+    match = re.search(r"DrawNumber=0*(\d+)", sppl_decoded)
+    if not match:
+        continue
+
+    draw_number = match.group(1)
+
+    if draw_number in existing_draws:
+        continue
+
+    full_url = f"{BASE_URL}?{sppl_raw}"
+    draw_urls.append(full_url)
+    valid_draws += 1
+
+if valid_draws == 0:
     print("[✓] No new draws found. draw_urls.txt not updated.")
+else:
+    with open(URLS_FILE, "w", encoding="utf-8") as f:
+        f.write("\n".join(draw_urls))
+    print(f"[✓] {valid_draws} new draw URLs written to {URLS_FILE}")
+    print("[DEBUG] First 3 new draws:")
+    for url in draw_urls[:3]:
+        print(f"  → {url}")
+
+print(f"[✓] Found {valid_draws} valid draws on Singapore Pools site")
