@@ -1,145 +1,117 @@
-let allData = [];
+let allResults = [];
+let filteredResults = [];
+let currentPage = 1;
+let resultsPerPage = 10;
 
-fetch("toto_result.json")
-  .then(res => res.json())
-  .then(data => {
-    allData = data;
-    populateFilters(data);
-    renderTable(data);
-    renderStats(data);
-  })
-  .catch(err => console.error("Failed to load JSON:", err));
-
-function populateFilters(data) {
-  const drawFilter = document.getElementById("drawFilter");
-  const dateFilter = document.getElementById("dateFilter");
-  const draws = [...new Set(data.map(r => r.draw_number))].sort((a, b) => b - a);
-  const dates = [...new Set(data.map(r => r.date))].sort((a, b) => new Date(b) - new Date(a));
-
-  for (const d of draws) {
-    const opt = document.createElement("option");
-    opt.value = d;
-    opt.textContent = d;
-    drawFilter.appendChild(opt);
-  }
-  for (const dt of dates) {
-    const opt = document.createElement("option");
-    opt.value = dt;
-    opt.textContent = dt;
-    dateFilter.appendChild(opt);
-  }
-
-  drawFilter.addEventListener("change", applyFilters);
-  dateFilter.addEventListener("change", applyFilters);
+function fetchData() {
+  fetch("docs/toto_result.json")
+    .then((response) => response.json())
+    .then((data) => {
+      allResults = data;
+      document.getElementById("lastUpdated").textContent = new Date().toLocaleString();
+      applyFilters();
+    })
+    .catch((error) => {
+      console.error("[ERROR] Failed to load JSON:", error);
+    });
 }
 
 function applyFilters() {
-  const drawVal = document.getElementById("drawFilter").value;
-  const dateVal = document.getElementById("dateFilter").value;
-  let filtered = allData;
-  if (drawVal !== "all") filtered = filtered.filter(d => d.draw_number === drawVal);
-  if (dateVal !== "all") filtered = filtered.filter(d => d.date === dateVal);
-  renderTable(filtered);
-  renderStats(filtered);
-}
+  const dateValue = document.getElementById("dateFilter").value;
+  const drawValue = document.getElementById("drawFilter").value.trim();
 
-function renderTable(data) {
-  const tbody = document.querySelector("#totoTable tbody");
-  tbody.innerHTML = "";
-  data.forEach(draw => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${draw.date}</td>
-      <td>${draw.draw_number}</td>
-      <td>${draw.winning_numbers.join(", ")}</td>
-      <td>${draw.additional_number}</td>
-      <td><a href="#" onclick="togglePrize(this)">Show</a></td>
-    `;
-    const prizeTr = document.createElement("tr");
-    prizeTr.classList.add("hidden");
-    prizeTr.innerHTML = `
-      <td colspan="5">
-        <table class="all-draw-table">
-          <thead><tr><th>Group</th><th>Amount</th><th>Winners</th></tr></thead>
-          <tbody>
-            ${draw.group_prizes.map(p => `
-              <tr>
-                <td>${p.group}</td>
-                <td>${p.amount}</td>
-                <td>${p.shares}</td>
-              </tr>`).join("")}
-          </tbody>
-        </table>
-      </td>`;
-    tbody.appendChild(tr);
-    tbody.appendChild(prizeTr);
+  filteredResults = allResults.filter((entry) => {
+    const matchesDate = !dateValue || new Date(entry.date).toISOString().slice(0, 10) === dateValue;
+    const matchesDraw = !drawValue || entry.draw_number === drawValue;
+    return matchesDate && matchesDraw;
   });
+
+  currentPage = 1;
+  renderResults();
 }
 
-function togglePrize(link) {
-  const row = link.closest("tr").nextSibling;
-  row.classList.toggle("hidden");
-  link.textContent = row.classList.contains("hidden") ? "Show" : "Hide";
+function updatePagination() {
+  resultsPerPage = parseInt(document.getElementById("perPageSelect").value, 10);
+  currentPage = 1;
+  renderResults();
 }
 
-function generateToto() {
-  const count = parseInt(document.getElementById("pickerCount").value, 10);
-  const nums = new Set();
-  while (nums.size < count) {
-    nums.add(Math.floor(Math.random() * 49) + 1);
+function renderResults() {
+  const tableContainer = document.getElementById("resultsTableContainer");
+  tableContainer.innerHTML = "";
+
+  const totalPages = Math.ceil(filteredResults.length / resultsPerPage);
+  const startIndex = (currentPage - 1) * resultsPerPage;
+  const endIndex = startIndex + resultsPerPage;
+  const paginatedResults = filteredResults.slice(startIndex, endIndex);
+
+  if (paginatedResults.length === 0) {
+    tableContainer.innerHTML = "<p>No results found.</p>";
+    document.getElementById("paginationControls").innerHTML = "";
+    return;
   }
-  document.getElementById("totoGenOutput").textContent = [...nums].sort((a, b) => a - b).join(", ");
-}
 
+  const table = document.createElement("table");
+  table.className = "results-table";
 
-function renderStats(data) {
-  const includeAdd = document.getElementById("bonusToggle").value === "yes";
+  const thead = document.createElement("thead");
+  thead.innerHTML = `
+    <tr>
+      <th>Date</th>
+      <th>Draw Number</th>
+      <th>Winning Numbers</th>
+      <th>Additional Number</th>
+      <th>Jackpot</th>
+    </tr>`;
+  table.appendChild(thead);
 
-  // Get hot/cold counts
-  const hotCount = parseInt(document.getElementById("hotCount").value, 10);
-  const coldCount = parseInt(document.getElementById("coldCount").value, 10);
-
-  // Initialize counter for 1–49
-  const countMap = {};
-  for (let i = 1; i <= 49; i++) countMap[i] = 0;
-
-  data.forEach(d => {
-    d.winning_numbers.forEach(n => countMap[n]++);
-    if (includeAdd && d.additional_number) countMap[d.additional_number]++;
+  const tbody = document.createElement("tbody");
+  paginatedResults.forEach((result) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${result.date}</td>
+      <td>${result.draw_number}</td>
+      <td>${result.winning_numbers.join(", ")}</td>
+      <td>${result.additional_number}</td>
+      <td>${result.jackpot}</td>
+    `;
+    tbody.appendChild(row);
   });
 
-  const allEntries = Object.entries(countMap);
-  const sortedHot = [...allEntries].sort((a, b) => b[1] - a[1]).slice(0, hotCount);
-  const sortedCold = [...allEntries].sort((a, b) => a[1] - b[1]).slice(0, coldCount);
+  table.appendChild(tbody);
+  tableContainer.appendChild(table);
 
-  // Update hot and cold numbers
-  const hotDiv = document.getElementById("hotNumbers");
-  const coldDiv = document.getElementById("coldNumbers");
-
-  hotDiv.innerHTML = sortedHot.map(([num, cnt]) =>
-    `<span class="pill hot">${cnt} draw${cnt !== 1 ? "s" : ""} "${num}"</span>`).join("");
-
-  coldDiv.innerHTML = sortedCold.map(([num, cnt]) =>
-    `<span class="pill cold">${cnt} draw${cnt !== 1 ? "s" : ""} "${num}"</span>`).join("");
-
-  document.getElementById("drawCount").textContent = `Results based on ${data.length} draw(s)`;
-
-  renderAllDrawList(countMap);
+  renderPaginationControls(totalPages);
 }
 
-function renderAllDrawList(countMap) {
-  const container = document.getElementById("allDrawList");
-  container.innerHTML = Object.entries(countMap).map(([n, c]) =>
-    `<tr><td>${n}</td><td>${c}</td></tr>`).join("");
+function renderPaginationControls(totalPages) {
+  const container = document.getElementById("paginationControls");
+  container.innerHTML = "";
+
+  if (totalPages <= 1) return;
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    btn.className = i === currentPage ? "active-page" : "";
+    btn.onclick = () => {
+      currentPage = i;
+      renderResults();
+    };
+    container.appendChild(btn);
+  }
 }
 
-function toggleAllDraws() {
-  document.getElementById("allDraws").classList.toggle("hidden");
+function resetFilters() {
+  document.getElementById("dateFilter").value = "";
+  document.getElementById("drawFilter").value = "";
+  applyFilters();
 }
 
-document.getElementById("bonusToggle").addEventListener("change", () => renderStats(allData));
-document.getElementById("hotCount").addEventListener("change", () => renderStats(allData));
-document.getElementById("coldCount").addEventListener("change", () => renderStats(allData));
-document.getElementById("darkToggle").addEventListener("click", () => {
+function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetchData();
 });
