@@ -1,78 +1,75 @@
 import requests
-import json
-import base64
-import os
 from bs4 import BeautifulSoup
+import json
+import os
+import re
 
-DRAW_PAGE = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx"
-RESULTS_JSON = "docs/toto_result.json"
-DRAW_URLS_TXT = "draw_urls.txt"
-BASE_URL = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?sppl="
+DRAW_LIST_URL = "https://www.singaporepools.com.sg/DataFileArchive/Lottery/Output/toto_result_draw_list_en.html"
+RESULTS_FILE = "docs/toto_result.json"
+OUTPUT_FILE = "draw_urls.txt"
 
-def encode_draw_number(draw_number):
-    return base64.b64encode(f"DrawNumber={draw_number}".encode("utf-8")).decode("utf-8")
-
-def main():
+def fetch_draw_links():
     print("[+] Fetching draw list...")
+    res = requests.get(DRAW_LIST_URL)
+    res.raise_for_status()
+    soup = BeautifulSoup(res.text, "html.parser")
 
-    # Step 1: Load existing result draw_numbers and encode them
-    try:
-        with open(RESULTS_JSON, "r") as f:
-            results = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        results = []
-
-    encoded_existing = {encode_draw_number(entry["draw_number"]) for entry in results}
-    print(f"[✓] Found {len(results)} results in {RESULTS_JSON}")
-
-    # Step 2: Request dropdown content from Singapore Pools
-    try:
-        response = requests.get(DRAW_PAGE, timeout=10)
-        response.raise_for_status()
-    except requests.RequestException as e:
-        print(f"[✗] Failed to fetch Singapore Pools page: {e}")
-        return
-
-    soup = BeautifulSoup(response.text, "html.parser")
-    options = soup.select("select[id$='ddlPastDraws'] > option")
+    options = soup.find_all("option")
     print(f"[DEBUG] Total <option> tags found: {len(options)}")
 
-    new_urls = []
+    draws = []
     for opt in options:
-        value = opt.get("value")
+        querystring = opt.get("querystring")
         text = opt.text.strip()
 
-        if not value or not value.startswith("sppl="):
+        print(f"[DEBUG] Option text: '{text}' | querystring: '{querystring}'")
+
+        if not querystring or not text:
             continue
 
-        encoded = value.split("=", 1)[1]
-        try:
-            decoded = base64.b64decode(encoded).decode("utf-8")
-            draw_number = decoded.split("=", 1)[1]
-        except Exception:
-            print(f"[!] Failed to decode: {value}")
-            continue
+        # Match any 4-digit number (e.g., 4096)
+        match = re.search(r"\b(\d{4})\b", text)
+        if match:
+            draw_number = match.group(1)
+            full_url = f"https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx?sppl={querystring}"
+            draws.append((draw_number, full_url))
 
-        print(f"[DEBUG] Option text: '{text}' | querystring: '{value}' | decoded: '{decoded}'")
+    print(f"[✓] Found {len(draws)} valid draws on Singapore Pools site")
 
-        # Remove if already in results
-        if encoded in encoded_existing:
-            continue
+    # Load already scraped draws
+    existing_draws = set()
+    if os.path.exists(RESULTS_FILE):
+        with open(RESULTS_FILE, "r") as f:
+            try:
+                results = json.load(f)
+                existing_draws = {entry["draw_number"] for entry in results}
+            except Exception:
+                pass
 
-        # Else add to new draw list
-        full_url = f"{BASE_URL}{encoded}"
-        new_urls.append(full_url)
+    print(f"[✓] Found {len(existing_draws)} results in {RESULTS_FILE}")
 
-    # Step 3: Write to draw_urls.txt if there are new URLs
-    if new_urls:
-        with open(DRAW_URLS_TXT, "w") as f:
-            f.write("\n".join(new_urls))
-        print(f"[✓] {len(new_urls)} new draw URLs written to {DRAW_URLS_TXT}")
-        print("[DEBUG] First 3 new draws:")
-        for url in new_urls[:3]:
-            print(f"  → {url}")
-    else:
-        print("[✓] No new draws found. draw_urls.txt not updated.")
+    missing = []
+    for draw_number, url in draws:
+        if draw_number not in existing_draws:
+            missing.append((int(draw_number), url))
+
+    if not missing:
+        print(f"[✓] No new draws. Skipping update of {OUTPUT_FILE}")
+        return
+
+    missing.sort(reverse=True)
+    urls_only = [url for _, url in missing]
+
+    with open(OUTPUT_FILE, "w") as f:
+        for url in urls_only:
+            f.write(url + "\n")
+        f.flush()
+        os.fsync(f.fileno())
+
+    print(f"[✓] {len(urls_only)} new draw URLs written to {OUTPUT_FILE}")
+    print("[DEBUG] First 3 new draws:")
+    for url in urls_only[:3]:
+        print("  →", url)
 
 if __name__ == "__main__":
-    main()
+    fetch_draw_links()
