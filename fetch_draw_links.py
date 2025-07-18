@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import json
 import os
 import re
+import base64
 
 DRAW_LIST_URL = "https://www.singaporepools.com.sg/DataFileArchive/Lottery/Output/toto_result_draw_list_en.html"
 RESULTS_FILE = "docs/toto_result.json"
@@ -22,12 +23,19 @@ def fetch_draw_links():
         querystring = opt.get("querystring")
         text = opt.text.strip()
 
-        print(f"[DEBUG] Option text: '{text}' | querystring: '{querystring}'")
-
         if not querystring or not text:
             continue
 
-        # Match any 4-digit number (e.g., 4096)
+        # Extract base64 string after "sppl="
+        b64_part = querystring.split("sppl=")[-1]
+        try:
+            decoded = base64.b64decode(b64_part).decode("utf-8")
+        except Exception:
+            decoded = "<invalid base64>"
+
+        print(f"[DEBUG] querystring: 'sppl={b64_part}' | decoded: '{decoded}'")
+
+        # Match 4-digit draw number
         match = re.search(r"\b(\d{4})\b", text)
         if match:
             draw_number = match.group(1)
@@ -36,7 +44,7 @@ def fetch_draw_links():
 
     print(f"[✓] Found {len(draws)} valid draws on Singapore Pools site")
 
-    # Load already scraped draws
+    # Load existing results
     existing_draws = set()
     if os.path.exists(RESULTS_FILE):
         with open(RESULTS_FILE, "r") as f:
