@@ -1,65 +1,63 @@
 import json
-import os
-import re
 import base64
-import requests
 from bs4 import BeautifulSoup
+import requests
 
-BASE_URL = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx"
+TOTO_URL = "https://www.singaporepools.com.sg/en/product/sr/Pages/toto_results.aspx"
+DRAW_URL_TEMPLATE = TOTO_URL + "?sppl={}"
 RESULTS_JSON_PATH = "docs/toto_result.json"
 DRAW_URLS_PATH = "draw_urls.txt"
 
-def load_existing_draw_numbers():
-    if not os.path.exists(RESULTS_JSON_PATH):
-        return set()
-    with open(RESULTS_JSON_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    return {str(entry["draw_number"]) for entry in data}
-
 def fetch_draw_options():
-    response = requests.get(BASE_URL, timeout=10)
+    response = requests.get(TOTO_URL)
     soup = BeautifulSoup(response.text, "html.parser")
-    options = soup.select("select[id$='_ddlPastDraws'] > option")
-    print(f"[DEBUG] Total <option> tags found: {len(options)}")
-    return options
+    return soup.select("select[id$='ddlPastDraws'] > option")
 
-def decode_draw_number(sppl_value):
+def decode_draw_number(sppl_encoded):
     try:
-        decoded = base64.b64decode(sppl_value).decode("utf-8")
-        match = re.search(r"DrawNumber=(\d+)", decoded)
-        return match.group(1) if match else None
+        decoded = base64.b64decode(sppl_encoded).decode("utf-8")
+        if "DrawNumber=" in decoded:
+            return int(decoded.split("DrawNumber=")[-1])
     except Exception:
         return None
 
-def main():
-    existing_draws = load_existing_draw_numbers()
-    print(f"[✓] Found {len(existing_draws)} results in {RESULTS_JSON_PATH}")
+def load_existing_draw_numbers(path):
+    try:
+        with open(path, "r") as f:
+            return set(int(entry["draw_number"]) for entry in json.load(f))
+    except Exception:
+        return set()
 
+def main():
+    print("[+] Fetching draw list...")
     options = fetch_draw_options()
+    print(f"[DEBUG] Total <option> tags found: {len(options)}")
+
+    existing_draws = load_existing_draw_numbers(RESULTS_JSON_PATH)
+    print(f"[✓] Found {len(options)} valid draws on Singapore Pools site")
+    print(f"[✓] Found {len(existing_draws)} results in {RESULTS_JSON_PATH}")
 
     new_urls = []
     for opt in options:
-        value = opt.get("value")
-        if not value:
+        sppl_encoded = opt.get("value")
+        draw_date = opt.text.strip()
+        if not sppl_encoded:
             continue
-        draw_number = decode_draw_number(value)
-        if draw_number is None:
-            continue
-        full_url = f"{BASE_URL}?sppl={value}"
-        if draw_number not in existing_draws:
+        draw_number = decode_draw_number(sppl_encoded)
+        if draw_number and draw_number not in existing_draws:
+            full_url = DRAW_URL_TEMPLATE.format(sppl_encoded)
             new_urls.append(full_url)
 
     if new_urls:
-        with open(DRAW_URLS_PATH, "w", encoding="utf-8") as f:
+        with open(DRAW_URLS_PATH, "w") as f:
             for url in new_urls:
                 f.write(url + "\n")
         print(f"[✓] {len(new_urls)} new draw URLs written to {DRAW_URLS_PATH}")
         print("[DEBUG] First 3 new draws:")
-        for u in new_urls[:3]:
-            print(f"  → {u}")
+        for url in new_urls[:3]:
+            print(f"  → {url}")
     else:
         print("[✓] No new draws found. draw_urls.txt not updated.")
 
 if __name__ == "__main__":
-    print("[+] Fetching draw list...")
     main()
