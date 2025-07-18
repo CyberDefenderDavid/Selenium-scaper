@@ -22,7 +22,17 @@
       <option value="all">All</option>
     </select>
   </div>
+      <label for="perPageSelect">Results per page:</label>
+      <select id="perPageSelect" onchange="updatePagination()">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
 
+      <button onclick="resetFilters()">Reset Filters</button>
   <table id="totoTable">
     <thead>
       <tr>
