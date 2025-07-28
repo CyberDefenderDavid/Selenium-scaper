@@ -1,5 +1,56 @@
 [
   {
+    "date": "Mon, 28 Jul 2025",
+    "draw_number": "4099",
+    "winning_numbers": [
+      "2",
+      "14",
+      "16",
+      "21",
+      "36",
+      "47"
+    ],
+    "additional_number": "1",
+    "jackpot": "$5,853,782",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$121,727",
+        "shares": "5"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,920",
+        "shares": "218"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$418",
+        "shares": "547"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "12,037"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "16,195"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "214,301"
+      }
+    ]
+  },
+  {
     "date": "Thu, 24 Jul 2025",
     "draw_number": "4098",
     "winning_numbers": [
