@@ -1,5 +1,56 @@
 [
   {
+    "date": "Fri, 08 Aug 2025",
+    "draw_number": "4102",
+    "winning_numbers": [
+      "2",
+      "15",
+      "28",
+      "39",
+      "42",
+      "44"
+    ],
+    "additional_number": "5",
+    "jackpot": "$5,527,890",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$5,527,890",
+        "shares": "1"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$241,107",
+        "shares": "6"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,896",
+        "shares": "422"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$401",
+        "shares": "1,091"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "23,034"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "33,896"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "419,505"
+      }
+    ]
+  },
+  {
     "date": "Mon, 04 Aug 2025",
     "draw_number": "4101",
     "winning_numbers": [
