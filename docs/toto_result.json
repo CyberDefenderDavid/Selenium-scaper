@@ -1,5 +1,56 @@
 [
   {
+    "date": "Mon, 10 Nov 2025",
+    "draw_number": "4129",
+    "winning_numbers": [
+      "2",
+      "11",
+      "12",
+      "19",
+      "25",
+      "36"
+    ],
+    "additional_number": "16",
+    "jackpot": "$1,285,138",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$67,639",
+        "shares": "4"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,170",
+        "shares": "159"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$241",
+        "shares": "421"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "8,778"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "10,776"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "140,314"
+      }
+    ]
+  },
+  {
     "date": "Thu, 06 Nov 2025",
     "draw_number": "4128",
     "winning_numbers": [
