@@ -1,5 +1,56 @@
 [
   {
+    "date": "Thu, 18 Dec 2025",
+    "draw_number": "4140",
+    "winning_numbers": [
+      "2",
+      "14",
+      "15",
+      "30",
+      "31",
+      "43"
+    ],
+    "additional_number": "27",
+    "jackpot": "$1,216,701",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$128,074",
+        "shares": "2"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$2,710",
+        "shares": "65"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$460",
+        "shares": "209"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "4,577"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "6,628"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "89,975"
+      }
+    ]
+  },
+  {
     "date": "Mon, 15 Dec 2025",
     "draw_number": "4139",
     "winning_numbers": [
