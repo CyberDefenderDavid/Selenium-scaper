@@ -1,5 +1,56 @@
 [
   {
+    "date": "Fri, 02 Jan 2026",
+    "draw_number": "4144",
+    "winning_numbers": [
+      "11",
+      "18",
+      "20",
+      "32",
+      "38",
+      "39"
+    ],
+    "additional_number": "34",
+    "jackpot": "$7,960,105",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$2,653,368",
+        "shares": "3"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$98,578",
+        "shares": "17"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,337",
+        "shares": "717"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$356",
+        "shares": "1,471"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "30,529"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "39,692"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "545,195"
+      }
+    ]
+  },
+  {
     "date": "Mon, 29 Dec 2025",
     "draw_number": "4143",
     "winning_numbers": [
