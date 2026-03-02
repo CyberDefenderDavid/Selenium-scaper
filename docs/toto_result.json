@@ -1,5 +1,56 @@
 [
   {
+    "date": "Mon, 02 Mar 2026",
+    "draw_number": "4161",
+    "winning_numbers": [
+      "6",
+      "8",
+      "28",
+      "37",
+      "41",
+      "49"
+    ],
+    "additional_number": "40",
+    "jackpot": "$1,327,704",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$279,517",
+        "shares": "1"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,550",
+        "shares": "124"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$387",
+        "shares": "271"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "5,908"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "7,247"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "111,023"
+      }
+    ]
+  },
+  {
     "date": "Fri, 27 Feb 2026",
     "draw_number": "4160",
     "winning_numbers": [
