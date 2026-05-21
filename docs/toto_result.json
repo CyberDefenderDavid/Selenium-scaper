@@ -1,5 +1,56 @@
 [
   {
+    "date": "Thu, 21 May 2026",
+    "draw_number": "4184",
+    "winning_numbers": [
+      "11",
+      "18",
+      "25",
+      "36",
+      "39",
+      "49"
+    ],
+    "additional_number": "41",
+    "jackpot": "$1,221,934",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "-",
+        "shares": "-"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$257,250",
+        "shares": "1"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,805",
+        "shares": "98"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$385",
+        "shares": "251"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "4,942"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "6,427"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "89,515"
+      }
+    ]
+  },
+  {
     "date": "Mon, 18 May 2026",
     "draw_number": "4183",
     "winning_numbers": [
