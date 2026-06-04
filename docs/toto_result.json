@@ -1,5 +1,56 @@
 [
   {
+    "date": "Thu, 04 Jun 2026",
+    "draw_number": "4188",
+    "winning_numbers": [
+      "3",
+      "5",
+      "20",
+      "23",
+      "26",
+      "27"
+    ],
+    "additional_number": "28",
+    "jackpot": "$2,995,540",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$748,885",
+        "shares": "4"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$27,702",
+        "shares": "13"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$700",
+        "shares": "354"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$205",
+        "shares": "660"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "12,347"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "15,230"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "182,936"
+      }
+    ]
+  },
+  {
     "date": "Mon, 01 Jun 2026",
     "draw_number": "4187",
     "winning_numbers": [
