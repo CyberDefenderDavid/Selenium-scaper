@@ -1,5 +1,56 @@
 [
   {
+    "date": "Fri, 07 Aug 2026",
+    "draw_number": "4206",
+    "winning_numbers": [
+      "5",
+      "7",
+      "30",
+      "33",
+      "36",
+      "46"
+    ],
+    "additional_number": "44",
+    "jackpot": "$5,134,521",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$1,711,507",
+        "shares": "3"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$135,119",
+        "shares": "8"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$1,461",
+        "shares": "509"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$358",
+        "shares": "1,133"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "24,370"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "29,897"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "433,859"
+      }
+    ]
+  },
+  {
     "date": "Mon, 03 Aug 2026",
     "draw_number": "4205",
     "winning_numbers": [
