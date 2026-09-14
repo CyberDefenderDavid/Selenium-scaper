@@ -1,5 +1,56 @@
 [
   {
+    "date": "Mon, 14 Sep 2026",
+    "draw_number": "4217",
+    "winning_numbers": [
+      "6",
+      "7",
+      "8",
+      "16",
+      "18",
+      "35"
+    ],
+    "additional_number": "31",
+    "jackpot": "$3,106,055",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$1,553,027",
+        "shares": "2"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$108,985",
+        "shares": "6"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$671",
+        "shares": "392"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$274",
+        "shares": "525"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "13,668"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "13,265"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "196,644"
+      }
+    ]
+  },
+  {
     "date": "Thu, 10 Sep 2026",
     "draw_number": "4216",
     "winning_numbers": [
