@@ -1,5 +1,56 @@
 [
   {
+    "date": "Thu, 19 Nov 2026",
+    "draw_number": "4236",
+    "winning_numbers": [
+      "8",
+      "26",
+      "28",
+      "37",
+      "41",
+      "42"
+    ],
+    "additional_number": "34",
+    "jackpot": "$1,183,486",
+    "group_prizes": [
+      {
+        "group": "Group 1",
+        "amount": "$1,183,486",
+        "shares": "1"
+      },
+      {
+        "group": "Group 2",
+        "amount": "$249,155",
+        "shares": "1"
+      },
+      {
+        "group": "Group 3",
+        "amount": "$2,115",
+        "shares": "81"
+      },
+      {
+        "group": "Group 4",
+        "amount": "$412",
+        "shares": "227"
+      },
+      {
+        "group": "Group 5",
+        "amount": "$50",
+        "shares": "5,016"
+      },
+      {
+        "group": "Group 6",
+        "amount": "$25",
+        "shares": "6,049"
+      },
+      {
+        "group": "Group 7",
+        "amount": "$10",
+        "shares": "94,429"
+      }
+    ]
+  },
+  {
     "date": "Mon, 16 Nov 2026",
     "draw_number": "4235",
     "winning_numbers": [
